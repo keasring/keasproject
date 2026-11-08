@@ -7,34 +7,34 @@
 <meta name="description" content="Сайт-визитка: мои Android-проекты, ссылки для поддержки и контакты.">
 <style>
   /* ============================================================
-     Material Design 3 — dark theme, orange seed
-     Только тональные поверхности и 1px границы.
+     Стиль в духе m3.material.io:
+     почти чёрный фон, контент на скруглённых панелях без рамок,
+     крупная типографика, акцент точечно.
      Без градиентов, теней, свечений и анимаций.
      ============================================================ */
   :root {
-    --md-sys-color-surface:              #17130E;
-    --md-sys-color-on-surface:           #EAE1D9;
-    --md-sys-color-surface-container:    #211E1B;
-    --md-sys-color-surface-container-high: #2B2926;
-    --md-sys-color-surface-container-highest: #363130;
-    --md-sys-color-on-surface-variant:   #D3C4B7;
-    --md-sys-color-outline-variant:      #50453A;
-    --md-sys-color-primary:              #FFB86B;
-    --md-sys-color-on-primary:           #4A2800;
-    --md-sys-color-primary-container:    #6B3F00;
-    --md-sys-color-on-primary-container: #FFDCC2;
+    --bg:          #131314;  /* фон страницы */
+    --surface-1:   #1B1B1D;  /* панели и hero */
+    --surface-2:   #232326;  /* карточки */
+    --surface-3:   #2B2B2F;  /* hover / доп. поверхность */
+    --text:        #E4E2E6;  /* основной текст */
+    --text-muted:  #C4C7C5;  /* вторичный текст */
+    --accent:      #FFA05C;  /* оранжевый для ссылок и деталей */
+    --accent-fill: #F5883B;  /* оранжевая заливка (кнопки, медиа-блоки) */
+    --on-accent:   #201A14;  /* текст на оранжевой заливке */
 
-    /* Типографика MD3 type scale (упрощённо, system-стек) */
-    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --headline-large: 700 32px/40px var(--font);
-    --title-large:    500 22px/28px var(--font);
-    --title-medium:   500 16px/24px var(--font);
-    --body-large:     400 16px/24px var(--font);
-    --body-medium:    400 14px/20px var(--font);
-    --label-large:    500 14px/20px var(--font);
+    --font: "Google Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --display: 500 clamp(40px, 6vw, 64px)/1.15 var(--font);
+    --headline: 500 32px/40px var(--font);
+    --title:    500 22px/28px var(--font);
+    --title-sm: 500 16px/24px var(--font);
+    --body:     400 16px/26px var(--font);
+    --body-sm:  400 14px/22px var(--font);
+    --label:    500 14px/20px var(--font);
 
-    --radius-card: 12px;
-    --radius-btn: 28px;
+    --r-panel: 28px;
+    --r-card:  24px;
+    --r-pill:  999px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,9 +42,9 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--md-sys-color-surface);
-    color: var(--md-sys-color-on-surface);
-    font: var(--body-large);
+    background: var(--bg);
+    color: var(--text);
+    font: var(--body);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -52,100 +52,96 @@
 
   .container {
     width: 100%;
-    max-width: 1040px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
-  a { color: var(--md-sys-color-primary); text-decoration: none; }
-  a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* ---------- Шапка ---------- */
-  header {
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
-  }
+  header { padding: 16px 0; }
   .header-inner {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: 24px;
-    height: 64px;
+    height: 48px;
   }
   .brand {
     display: grid;
     grid-template-columns: 8px auto;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
-    font: var(--title-medium);
-    color: var(--md-sys-color-on-surface);
+    font: var(--title-sm);
+    color: var(--text);
   }
   .brand-dot {
     width: 8px; height: 8px;
-    background: var(--md-sys-color-primary);
+    background: var(--accent-fill);
     border-radius: 50%;
   }
   nav {
     display: grid;
     grid-auto-flow: column;
     justify-content: end;
-    gap: 24px;
+    gap: 8px;
   }
   nav a {
-    font: var(--label-large);
-    color: var(--md-sys-color-on-surface-variant);
-    padding: 8px 0;
+    font: var(--label);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: var(--r-pill);
   }
-  nav a:hover { color: var(--md-sys-color-primary); }
+  nav a:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
 
   /* ---------- Секции ---------- */
   main { flex: 1; }
 
-  section { padding: 48px 0; }
+  section { padding: 40px 0; }
 
   .section-head {
     display: grid;
-    gap: 8px;
+    gap: 12px;
     margin-bottom: 24px;
   }
   .section-label {
-    font: var(--label-large);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--md-sys-color-primary);
+    font: var(--label);
+    color: var(--text-muted);
   }
-  .section-title { font: var(--headline-large); }
+  .section-title { font: var(--headline); }
 
-  /* ---------- Обо мне ---------- */
+  /* ---------- Hero / Обо мне ---------- */
+  .hero {
+    background: var(--surface-1);
+    border-radius: var(--r-panel);
+    padding: clamp(32px, 6vw, 64px);
+    display: grid;
+    gap: 16px;
+  }
+  .hero h1 { font: var(--display); letter-spacing: -0.01em; }
+  .hero p { color: var(--text-muted); max-width: 640px; }
+
   .about-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
     align-items: stretch;
   }
-  .about-card {
-    background: var(--md-sys-color-surface-container);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--radius-card);
-    padding: 24px;
-    display: grid;
-    gap: 8px;
-    align-content: start;
-  }
-  .about-card h3 { font: var(--title-large); }
-  .about-card p  { font: var(--body-large); color: var(--md-sys-color-on-surface-variant); }
-  .about-fact {
+  .fact-card {
     display: grid;
     gap: 4px;
     align-content: center;
-    justify-items: center;
-    text-align: center;
-    background: var(--md-sys-color-surface-container-high);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--radius-card);
-    padding: 24px;
+    background: var(--surface-1);
+    border-radius: var(--r-card);
+    padding: 32px;
   }
-  .about-fact dt { font: var(--label-large); color: var(--md-sys-color-on-surface-variant); }
-  .about-fact dd { font: var(--title-large); color: var(--md-sys-color-primary); }
+  .fact-card dt { font: var(--label); color: var(--text-muted); }
+  .fact-card dd { font: var(--headline); color: var(--text); }
 
   /* ---------- Проекты ---------- */
   .grid-2 {
@@ -156,55 +152,43 @@
   }
   .card {
     display: grid;
+    grid-template-rows: 128px auto;
+    background: var(--surface-1);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    color: var(--text);
+  }
+  a.card:hover { background: var(--surface-2); }
+  .card-media {
+    background: var(--accent-fill);
+  }
+  .card-media.media-empty { background: var(--surface-3); }
+  .card-body {
+    display: grid;
     gap: 8px;
     align-content: start;
-    background: var(--md-sys-color-surface-container);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--radius-card);
     padding: 24px;
-    color: var(--md-sys-color-on-surface);
   }
-  a.card:hover { background: var(--md-sys-color-surface-container-high); }
-  .card h3 { font: var(--title-large); }
-  .card .desc { font: var(--body-medium); color: var(--md-sys-color-on-surface-variant); }
-  .card .tag {
-    justify-self: start;
-    font: var(--label-large);
-    color: var(--md-sys-color-on-primary-container);
-    background: var(--md-sys-color-primary-container);
-    padding: 2px 12px;
-    border-radius: 8px;
-  }
-  .card-soon {
-    display: grid;
-    place-content: center;
-    text-align: center;
-    background: transparent;
-    border: 1px dashed var(--md-sys-color-outline-variant);
-    border-radius: var(--radius-card);
-    padding: 24px;
-    min-height: 148px;
-    color: var(--md-sys-color-on-surface-variant);
-    font: var(--body-medium);
-  }
+  .card-body h3 { font: var(--title); }
+  .card-body .desc { font: var(--body-sm); color: var(--text-muted); }
+  .card-soon .card-body { place-content: center; text-align: center; }
+  .card-soon .card-body .desc { color: var(--text-muted); }
 
   /* ---------- Кнопки-ссылки ---------- */
   .btn {
     display: inline-block;
-    font: var(--label-large);
+    font: var(--label);
     padding: 10px 24px;
-    border-radius: var(--radius-btn);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    color: var(--md-sys-color-primary);
-    background: var(--md-sys-color-surface-container);
+    border-radius: var(--r-pill);
+    color: var(--text);
+    background: var(--surface-3);
   }
-  .btn:hover { background: var(--md-sys-color-surface-container-high); }
+  .btn:hover { background: #333338; }
   .btn-filled {
-    background: var(--md-sys-color-primary);
-    border-color: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
+    background: var(--accent-fill);
+    color: var(--on-accent);
   }
-  .btn-filled:hover { background: var(--md-sys-color-primary-container); border-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+  .btn-filled:hover { background: var(--accent); color: var(--on-accent); }
 
   /* ---------- Донаты / контакты ---------- */
   .row-cards {
@@ -218,28 +202,27 @@
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 16px;
-    background: var(--md-sys-color-surface-container);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--radius-card);
-    padding: 24px;
+    background: var(--surface-1);
+    border-radius: var(--r-card);
+    padding: 32px;
   }
-  .row-card h3 { font: var(--title-large); margin-bottom: 4px; }
-  .row-card p  { font: var(--body-medium); color: var(--md-sys-color-on-surface-variant); }
+  .row-card h3 { font: var(--title); margin-bottom: 4px; }
+  .row-card p  { font: var(--body-sm); color: var(--text-muted); }
 
   /* ---------- Футер ---------- */
   footer {
-    border-top: 1px solid var(--md-sys-color-outline-variant);
-    padding: 24px 0;
-    font: var(--body-medium);
-    color: var(--md-sys-color-on-surface-variant);
+    padding: 40px 0 48px;
+    font: var(--body-sm);
+    color: var(--text-muted);
   }
 
   /* ---------- Адаптив ---------- */
   @media (max-width: 720px) {
-    .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; padding: 12px 0; gap: 8px; }
+    .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; gap: 8px; }
+    nav { grid-auto-flow: row; justify-content: center; justify-items: center; }
     .about-grid, .grid-2, .row-cards { grid-template-columns: 1fr; }
     .row-card { grid-template-columns: 1fr; }
-    section { padding: 32px 0; }
+    section { padding: 24px 0; }
   }
 </style>
 </head>
@@ -261,22 +244,23 @@
 
   <section id="about">
     <div class="container">
-      <div class="section-head">
+      <div class="hero">
         <span class="section-label">Обо мне</span>
-        <h2 class="section-title">Привет, я KeasRing</h2>
+        <h1>Привет, я KeasRing</h1>
+        <p><!-- Текст о себе — заполни сам -->
+          Здесь будет короткий текст о тебе: чем занимаешься, что делаешь,
+          чем интересен. Два-три предложения — этого достаточно.
+        </p>
       </div>
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Чем занимаюсь</h3>
-          <p><!-- Текст о себе — заполни сам -->
-            Здесь будет короткий текст о тебе: чем занимаешься, что делаешь,
-            чем интересен. Два-три предложения — этого достаточно.
-          </p>
-        </div>
-        <dl class="about-fact">
+      <div class="about-grid" style="margin-top: 16px;">
+        <div class="fact-card">
           <dt>Направление</dt>
           <dd>Android-разработка</dd>
-        </dl>
+        </div>
+        <div class="fact-card">
+          <dt>Исходный код</dt>
+          <dd>Открытый</dd>
+        </div>
       </div>
     </div>
   </section>
@@ -289,17 +273,31 @@
       </div>
       <div class="grid-2">
         <a class="card" href="https://github.com/KeasRing/kizboot" target="_blank" rel="noopener">
-          <h3>kizboot</h3>
-          <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
-          <span class="tag">Android</span>
+          <div class="card-media"></div>
+          <div class="card-body">
+            <h3>kizboot</h3>
+            <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
+          </div>
         </a>
         <a class="card" href="https://github.com/KeasRing/kizQR" target="_blank" rel="noopener">
-          <h3>kizQR</h3>
-          <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
-          <span class="tag">Android</span>
+          <div class="card-media"></div>
+          <div class="card-body">
+            <h3>kizQR</h3>
+            <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
+          </div>
         </a>
-        <div class="card-soon">Скоро</div>
-        <div class="card-soon">Скоро</div>
+        <a class="card card-soon" href="https://github.com/KeasRing" target="_blank" rel="noopener">
+          <div class="card-media media-empty"></div>
+          <div class="card-body">
+            <p class="desc">Скоро</p>
+          </div>
+        </a>
+        <a class="card card-soon" href="https://github.com/KeasRing" target="_blank" rel="noopener">
+          <div class="card-media media-empty"></div>
+          <div class="card-body">
+            <p class="desc">Скоро</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
