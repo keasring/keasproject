@@ -116,7 +116,7 @@
   }
   .banner-card {
     display: grid;
-    grid-template-rows: 150px auto;
+    grid-template-rows: auto auto;
     background: var(--md-sys-color-surface-container);
     border-radius: 24px;
     overflow: hidden;
@@ -124,13 +124,14 @@
   .banner-card:hover { background: var(--md-sys-color-surface-container-high); }
   .banner-card img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    /* Пропорции баннера Юмани (419x91) — оба баннера одной высоты,
+       Юмани заполняет зону ровно, без подложки */
+    aspect-ratio: 419 / 91;
     object-fit: cover;
     object-position: center;
     display: block;
   }
-  /* Широкий баннер Юмани — вписываем целиком, полосы почти незаметны */
-  .banner-card img.img-contain { object-fit: contain; background: #8717d9; }
   .banner-caption {
     display: grid;
     gap: 4px;
@@ -183,7 +184,7 @@
 
       <div class="banners">
         <a class="banner-card" href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener">
-          <img class="img-contain" src="assets/yoomoney-banner.png" alt="YooMoney">
+          <img src="assets/yoomoney-banner.png" alt="YooMoney">
           <div class="banner-caption">
             <h2>YooMoney</h2>
             <p>Перевод на кошелёк напрямую.</p>
