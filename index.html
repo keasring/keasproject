@@ -5,25 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KeasRing — визитка</title>
 <meta name="description" content="Сайт-визитка: мои Android-проекты, ссылки для поддержки и контакты.">
+
+<!-- Roboto + Material Symbols (шрифты Material Design) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
 <style>
   /* ============================================================
-     Стиль в духе m3.material.io:
-     почти чёрный фон, контент на скруглённых панелях без рамок,
-     крупная типографика, акцент точечно.
+     Дизайн в духе m3.material.io на компонентах @material/web.
+     Тёмная тема, оранжевый акцент, строгая сетка.
      Без градиентов, теней, свечений и анимаций.
      ============================================================ */
   :root {
-    --bg:          #131314;  /* фон страницы */
-    --surface-1:   #1B1B1D;  /* панели и hero */
-    --surface-2:   #232326;  /* карточки */
-    --surface-3:   #2B2B2F;  /* hover / доп. поверхность */
-    --text:        #E4E2E6;  /* основной текст */
-    --text-muted:  #C4C7C5;  /* вторичный текст */
-    --accent:      #FFA05C;  /* оранжевый для ссылок и деталей */
-    --accent-fill: #F5883B;  /* оранжевая заливка (кнопки, медиа-блоки) */
-    --on-accent:   #201A14;  /* текст на оранжевой заливке */
+    /* MD3 system tokens — их читают компоненты @material/web */
+    --md-sys-color-primary:               #F5883B;
+    --md-sys-color-on-primary:            #201A14;
+    --md-sys-color-primary-container:     #FFA05C;
+    --md-sys-color-on-primary-container:  #201A14;
+    --md-sys-color-surface:               #131314;
+    --md-sys-color-on-surface:            #E4E2E6;
+    --md-sys-color-on-surface-variant:    #C4C7C5;
+    --md-sys-color-surface-container:     #1B1B1D;
+    --md-sys-color-surface-container-high:#232326;
+    --md-sys-color-surface-container-highest: #2B2B2F;
+    --md-sys-color-outline:               #2B2B2F;
+    --md-sys-color-outline-variant:       #232326;
 
-    --font: "Google Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* Компоненты без «подъёма»: тон вместо теней */
+    --md-filled-card-container-color:     var(--md-sys-color-surface-container);
+    --md-filled-button-container-color:   var(--md-sys-color-primary);
+    --md-filled-button-label-text-color:  var(--md-sys-color-on-primary);
+    --md-filled-tonal-button-container-color:  var(--md-sys-color-surface-container-highest);
+    --md-filled-tonal-button-label-text-color: var(--md-sys-color-on-surface);
+
+    --font: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     --display: 500 clamp(40px, 6vw, 64px)/1.15 var(--font);
     --headline: 500 32px/40px var(--font);
     --title:    500 22px/28px var(--font);
@@ -34,17 +50,19 @@
 
     --r-panel: 28px;
     --r-card:  24px;
-    --r-pill:  999px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Сброс не должен задевать веб-компоненты: стили документа
+     перебивают их внутренние :host-правила */
+  *:not(md-filled-button, md-filled-tonal-button, md-filled-card) { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
     font: var(--body);
+    font-family: var(--font);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -57,8 +75,8 @@
     padding: 0 24px;
   }
 
-  a { color: var(--accent); text-decoration: none; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  a { color: var(--md-sys-color-primary); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
 
   /* ---------- Шапка ---------- */
   header { padding: 16px 0; }
@@ -75,11 +93,11 @@
     gap: 10px;
     align-items: center;
     font: var(--title-sm);
-    color: var(--text);
+    color: var(--md-sys-color-on-surface);
   }
   .brand-dot {
     width: 8px; height: 8px;
-    background: var(--accent-fill);
+    background: var(--md-sys-color-primary);
     border-radius: 50%;
   }
   nav {
@@ -90,13 +108,14 @@
   }
   nav a {
     font: var(--label);
-    color: var(--text-muted);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
     padding: 8px 16px;
-    border-radius: var(--r-pill);
+    border-radius: 999px;
   }
   nav a:hover {
-    color: var(--text);
-    background: var(--surface-2);
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container-high);
   }
 
   /* ---------- Секции ---------- */
@@ -111,37 +130,39 @@
   }
   .section-label {
     font: var(--label);
-    color: var(--text-muted);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
   }
   .section-title { font: var(--headline); }
 
   /* ---------- Hero / Обо мне ---------- */
   .hero {
-    background: var(--surface-1);
+    background: var(--md-sys-color-surface-container);
     border-radius: var(--r-panel);
     padding: clamp(32px, 6vw, 64px);
     display: grid;
     gap: 16px;
   }
   .hero h1 { font: var(--display); letter-spacing: -0.01em; }
-  .hero p { color: var(--text-muted); max-width: 640px; }
+  .hero p { color: var(--md-sys-color-on-surface-variant); max-width: 640px; }
 
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     align-items: stretch;
+    margin-top: 16px;
   }
   .fact-card {
     display: grid;
     gap: 4px;
     align-content: center;
-    background: var(--surface-1);
+    background: var(--md-sys-color-surface-container);
     border-radius: var(--r-card);
     padding: 32px;
   }
-  .fact-card dt { font: var(--label); color: var(--text-muted); }
-  .fact-card dd { font: var(--headline); color: var(--text); }
+  .fact-card dt { font: var(--label); font-family: var(--font); color: var(--md-sys-color-on-surface-variant); }
+  .fact-card dd { font: var(--headline); }
 
   /* ---------- Проекты ---------- */
   .grid-2 {
@@ -150,19 +171,19 @@
     gap: 16px;
     align-items: stretch;
   }
-  .card {
+  md-filled-card.card {
+    --md-filled-card-container-color: var(--md-sys-color-surface-container);
+    padding: 0;
     display: grid;
     grid-template-rows: 128px auto;
-    background: var(--surface-1);
     border-radius: var(--r-card);
     overflow: hidden;
-    color: var(--text);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font);
   }
-  a.card:hover { background: var(--surface-2); }
-  .card-media {
-    background: var(--accent-fill);
-  }
-  .card-media.media-empty { background: var(--surface-3); }
+  a.card:hover { --md-filled-card-container-color: var(--md-sys-color-surface-container-high); }
+  .card-media { background: var(--md-sys-color-primary); }
+  .card-media.media-empty { background: var(--md-sys-color-surface-container-highest); }
   .card-body {
     display: grid;
     gap: 8px;
@@ -170,25 +191,8 @@
     padding: 24px;
   }
   .card-body h3 { font: var(--title); }
-  .card-body .desc { font: var(--body-sm); color: var(--text-muted); }
+  .card-body .desc { font: var(--body-sm); color: var(--md-sys-color-on-surface-variant); }
   .card-soon .card-body { place-content: center; text-align: center; }
-  .card-soon .card-body .desc { color: var(--text-muted); }
-
-  /* ---------- Кнопки-ссылки ---------- */
-  .btn {
-    display: inline-block;
-    font: var(--label);
-    padding: 10px 24px;
-    border-radius: var(--r-pill);
-    color: var(--text);
-    background: var(--surface-3);
-  }
-  .btn:hover { background: #333338; }
-  .btn-filled {
-    background: var(--accent-fill);
-    color: var(--on-accent);
-  }
-  .btn-filled:hover { background: var(--accent); color: var(--on-accent); }
 
   /* ---------- Донаты / контакты ---------- */
   .row-cards {
@@ -197,23 +201,29 @@
     gap: 16px;
     align-items: stretch;
   }
-  .row-card {
+  md-filled-card.row-card {
+    --md-filled-card-container-color: var(--md-sys-color-surface-container);
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 16px;
-    background: var(--surface-1);
     border-radius: var(--r-card);
     padding: 32px;
+    font-family: var(--font);
   }
   .row-card h3 { font: var(--title); margin-bottom: 4px; }
-  .row-card p  { font: var(--body-sm); color: var(--text-muted); }
+  .row-card p  { font: var(--body-sm); color: var(--md-sys-color-on-surface-variant); }
+
+  /* Кнопки @material/web */
+  md-filled-button::part(button),
+  md-filled-tonal-button::part(button) { font-family: var(--font); }
 
   /* ---------- Футер ---------- */
   footer {
     padding: 40px 0 48px;
     font: var(--body-sm);
-    color: var(--text-muted);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
   }
 
   /* ---------- Адаптив ---------- */
@@ -221,7 +231,7 @@
     .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; gap: 8px; }
     nav { grid-auto-flow: row; justify-content: center; justify-items: center; }
     .about-grid, .grid-2, .row-cards { grid-template-columns: 1fr; }
-    .row-card { grid-template-columns: 1fr; }
+    md-filled-card.row-card { grid-template-columns: 1fr; }
     section { padding: 24px 0; }
   }
 </style>
@@ -252,7 +262,7 @@
           чем интересен. Два-три предложения — этого достаточно.
         </p>
       </div>
-      <div class="about-grid" style="margin-top: 16px;">
+      <div class="about-grid">
         <div class="fact-card">
           <dt>Направление</dt>
           <dd>Android-разработка</dd>
@@ -273,30 +283,38 @@
       </div>
       <div class="grid-2">
         <a class="card" href="https://github.com/KeasRing/kizboot" target="_blank" rel="noopener">
-          <div class="card-media"></div>
-          <div class="card-body">
-            <h3>kizboot</h3>
-            <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
-          </div>
+          <md-filled-card class="card">
+            <div class="card-media"></div>
+            <div class="card-body">
+              <h3>kizboot</h3>
+              <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
+            </div>
+          </md-filled-card>
         </a>
         <a class="card" href="https://github.com/KeasRing/kizQR" target="_blank" rel="noopener">
-          <div class="card-media"></div>
-          <div class="card-body">
-            <h3>kizQR</h3>
-            <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
-          </div>
+          <md-filled-card class="card">
+            <div class="card-media"></div>
+            <div class="card-body">
+              <h3>kizQR</h3>
+              <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
+            </div>
+          </md-filled-card>
         </a>
         <a class="card card-soon" href="https://github.com/KeasRing" target="_blank" rel="noopener">
-          <div class="card-media media-empty"></div>
-          <div class="card-body">
-            <p class="desc">Скоро</p>
-          </div>
+          <md-filled-card class="card">
+            <div class="card-media media-empty"></div>
+            <div class="card-body">
+              <p class="desc">Скоро</p>
+            </div>
+          </md-filled-card>
         </a>
         <a class="card card-soon" href="https://github.com/KeasRing" target="_blank" rel="noopener">
-          <div class="card-media media-empty"></div>
-          <div class="card-body">
-            <p class="desc">Скоро</p>
-          </div>
+          <md-filled-card class="card">
+            <div class="card-media media-empty"></div>
+            <div class="card-body">
+              <p class="desc">Скоро</p>
+            </div>
+          </md-filled-card>
         </a>
       </div>
     </div>
@@ -309,20 +327,20 @@
         <h2 class="section-title">Поддержать проекты</h2>
       </div>
       <div class="row-cards">
-        <div class="row-card">
+        <md-filled-card class="row-card">
           <div>
             <h3>Dalink</h3>
             <p>Все способы поддержки в одной ссылке.</p>
           </div>
-          <a class="btn btn-filled" href="https://dalink.to/kizkeas" target="_blank" rel="noopener">Открыть</a>
-        </div>
-        <div class="row-card">
+          <md-filled-button href="https://dalink.to/kizkeas" target="_blank" rel="noopener">Открыть</md-filled-button>
+        </md-filled-card>
+        <md-filled-card class="row-card">
           <div>
             <h3>YooMoney</h3>
             <p>Перевод на кошелёк напрямую.</p>
           </div>
-          <a class="btn" href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener">Перевести</a>
-        </div>
+          <md-filled-tonal-button href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener">Перевести</md-filled-tonal-button>
+        </md-filled-card>
       </div>
     </div>
   </section>
@@ -334,20 +352,20 @@
         <h2 class="section-title">Связь и новости</h2>
       </div>
       <div class="row-cards">
-        <div class="row-card">
+        <md-filled-card class="row-card">
           <div>
             <h3>Telegram-канал</h3>
             <p>Новости и обновления проектов.</p>
           </div>
-          <a class="btn btn-filled" href="https://t.me/KizAPPS" target="_blank" rel="noopener">Подписаться</a>
-        </div>
-        <div class="row-card">
+          <md-filled-button href="https://t.me/KizAPPS" target="_blank" rel="noopener">Подписаться</md-filled-button>
+        </md-filled-card>
+        <md-filled-card class="row-card">
           <div>
             <h3>GitHub</h3>
             <p>Исходный код всех проектов.</p>
           </div>
-          <a class="btn" href="https://github.com/KeasRing" target="_blank" rel="noopener">Открыть</a>
-        </div>
+          <md-filled-tonal-button href="https://github.com/KeasRing" target="_blank" rel="noopener">Открыть</md-filled-tonal-button>
+        </md-filled-card>
       </div>
     </div>
   </section>
@@ -359,6 +377,33 @@
     KeasRing · Android-разработка · Исходный код на GitHub
   </div>
 </footer>
+
+<!-- Material Web: MD3-компоненты (кнопки, карточки) -->
+<script type="importmap">
+{
+  "imports": {
+    "lit": "https://cdn.jsdelivr.net/npm/lit@3.3.3/+esm",
+    "lit/": "https://cdn.jsdelivr.net/npm/lit@3.3.3/",
+    "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3.3.3/+esm",
+    "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3.3.3/",
+    "lit-element": "https://cdn.jsdelivr.net/npm/lit-element@4.2.1/+esm",
+    "lit-element/": "https://cdn.jsdelivr.net/npm/lit-element@4.2.1/",
+    "@lit/reactive-element": "https://cdn.jsdelivr.net/npm/@lit/reactive-element@2.2.1/+esm",
+    "@lit/": "https://cdn.jsdelivr.net/npm/@lit/",
+    "@material/web/": "https://cdn.jsdelivr.net/npm/@material/web@2.5.0/",
+    "tslib": "https://cdn.jsdelivr.net/npm/tslib@2.8.1/+esm"
+  }
+}
+</script>
+<script type="module">
+  try {
+    await import('@material/web/button/filled-button.js');
+    await import('@material/web/button/filled-tonal-button.js');
+    await import('@material/web/labs/card/filled-card.js');
+  } catch (e) {
+    window.__mwError = String(e && e.message || e);
+  }
+</script>
 
 </body>
 </html>
