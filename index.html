@@ -3,197 +3,364 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KizAPPS — Android приложения</title>
+<title>KeasRing — визитка</title>
+<meta name="description" content="Сайт-визитка: мои Android-проекты, ссылки для поддержки и контакты.">
 <style>
+  /* ============================================================
+     Material Design 3 — dark theme, orange seed
+     Только тональные поверхности и 1px границы.
+     Без градиентов, теней, свечений и анимаций.
+     ============================================================ */
   :root {
-    --md-primary: #FB8C00;
-    --md-on-primary: #FFFFFF;
-    --md-surface: #FAFAFA;
-    --md-on-surface: #1C1B1F;
-    --md-outline: #E0E0E0;
+    --md-sys-color-surface:              #17130E;
+    --md-sys-color-on-surface:           #EAE1D9;
+    --md-sys-color-surface-container:    #211E1B;
+    --md-sys-color-surface-container-high: #2B2926;
+    --md-sys-color-surface-container-highest: #363130;
+    --md-sys-color-on-surface-variant:   #D3C4B7;
+    --md-sys-color-outline-variant:      #50453A;
+    --md-sys-color-primary:              #FFB86B;
+    --md-sys-color-on-primary:           #4A2800;
+    --md-sys-color-primary-container:    #6B3F00;
+    --md-sys-color-on-primary-container: #FFDCC2;
+
+    /* Типографика MD3 type scale (упрощённо, system-стек) */
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --headline-large: 700 32px/40px var(--font);
+    --title-large:    500 22px/28px var(--font);
+    --title-medium:   500 16px/24px var(--font);
+    --body-large:     400 16px/24px var(--font);
+    --body-medium:    400 14px/20px var(--font);
+    --label-large:    500 14px/20px var(--font);
+
+    --radius-card: 12px;
+    --radius-btn: 28px;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { scroll-behavior: smooth; }
+
   body {
-    font-family: system-ui, -apple-system, Roboto, "Helvetica Neue", sans-serif;
-    background: var(--md-surface);
-    color: var(--md-on-surface);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font: var(--body-large);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-  .wrap {
-    max-width: 960px;
+
+  .container {
+    width: 100%;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 24px;
   }
+
+  a { color: var(--md-sys-color-primary); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+
+  /* ---------- Шапка ---------- */
   header {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--md-outline);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  }
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 24px;
+    height: 64px;
   }
   .brand {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: 8px auto;
+    gap: 8px;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--md-on-surface);
+    font: var(--title-medium);
+    color: var(--md-sys-color-on-surface);
   }
-  .brand .dot {
-    width: 10px; height: 10px;
-    background: var(--md-primary);
+  .brand-dot {
+    width: 8px; height: 8px;
+    background: var(--md-sys-color-primary);
     border-radius: 50%;
   }
   nav {
-    margin-top: 0.75rem;
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.95rem;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    gap: 24px;
   }
   nav a {
-    text-decoration: none;
-    color: var(--md-on-surface);
-    opacity: 0.8;
+    font: var(--label-large);
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 0;
   }
-  nav a:hover { opacity: 1; color: var(--md-primary); }
-  main { padding: 2.5rem 0 4rem; }
-  section { margin-bottom: 3rem; }
-  h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
-  h2 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.5rem; }
-  p.lead { font-size: 1.1rem; opacity: 0.85; max-width: 60ch; }
-  .dot-accent {
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: var(--md-primary);
-    border-radius: 50%;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-  }
-  /* Сетка без карточек/плашек */
-  .grid {
+  nav a:hover { color: var(--md-sys-color-primary); }
+
+  /* ---------- Секции ---------- */
+  main { flex: 1; }
+
+  section { padding: 48px 0; }
+
+  .section-head {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px;
+    margin-bottom: 24px;
   }
-  .grid-item {
-    display: block;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--md-outline);
-    text-decoration: none;
-    color: inherit;
+  .section-label {
+    font: var(--label-large);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--md-sys-color-primary);
   }
-  .grid-item:last-child { border-bottom: none; }
-  .grid-item h3 {
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  .grid-item p {
-    font-size: 0.9rem;
-    opacity: 0.75;
-    margin-bottom: 0.5rem;
-  }
-  .grid-item .external {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--md-primary);
-    text-decoration: none;
-  }
-  .grid-item .external:hover { text-decoration: underline; }
-  /* Донат — чистые ссылки, без плашек */
-  .donate-grid {
+  .section-title { font: var(--headline-large); }
+
+  /* ---------- Обо мне ---------- */
+  .about-grid {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    align-items: stretch;
   }
-  .donate-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 0;
-    color: var(--md-on-surface);
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px solid var(--md-outline);
+  .about-card {
+    background: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
   }
-  .donate-link:last-child { border-bottom: none; }
-  .donate-link:hover {
-    color: var(--md-primary);
-    text-decoration: underline;
-  }
-  footer {
-    border-top: 1px solid var(--md-outline);
-    padding: 2rem 0;
-    color: var(--md-on-surface);
-    opacity: 0.6;
-    font-size: 0.9rem;
+  .about-card h3 { font: var(--title-large); }
+  .about-card p  { font: var(--body-large); color: var(--md-sys-color-on-surface-variant); }
+  .about-fact {
+    display: grid;
+    gap: 4px;
+    align-content: center;
+    justify-items: center;
     text-align: center;
+    background: var(--md-sys-color-surface-container-high);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--radius-card);
+    padding: 24px;
   }
-  @media (max-width: 600px) {
-    h1 { font-size: 2rem; }
-    nav { flex-direction: column; gap: 0.5rem; }
+  .about-fact dt { font: var(--label-large); color: var(--md-sys-color-on-surface-variant); }
+  .about-fact dd { font: var(--title-large); color: var(--md-sys-color-primary); }
+
+  /* ---------- Проекты ---------- */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .card {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    background: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    color: var(--md-sys-color-on-surface);
+  }
+  a.card:hover { background: var(--md-sys-color-surface-container-high); }
+  .card h3 { font: var(--title-large); }
+  .card .desc { font: var(--body-medium); color: var(--md-sys-color-on-surface-variant); }
+  .card .tag {
+    justify-self: start;
+    font: var(--label-large);
+    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-primary-container);
+    padding: 2px 12px;
+    border-radius: 8px;
+  }
+  .card-soon {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: transparent;
+    border: 1px dashed var(--md-sys-color-outline-variant);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    min-height: 148px;
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--body-medium);
+  }
+
+  /* ---------- Кнопки-ссылки ---------- */
+  .btn {
+    display: inline-block;
+    font: var(--label-large);
+    padding: 10px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-surface-container);
+  }
+  .btn:hover { background: var(--md-sys-color-surface-container-high); }
+  .btn-filled {
+    background: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+  }
+  .btn-filled:hover { background: var(--md-sys-color-primary-container); border-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+
+  /* ---------- Донаты / контакты ---------- */
+  .row-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .row-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 16px;
+    background: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--radius-card);
+    padding: 24px;
+  }
+  .row-card h3 { font: var(--title-large); margin-bottom: 4px; }
+  .row-card p  { font: var(--body-medium); color: var(--md-sys-color-on-surface-variant); }
+
+  /* ---------- Футер ---------- */
+  footer {
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    padding: 24px 0;
+    font: var(--body-medium);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  /* ---------- Адаптив ---------- */
+  @media (max-width: 720px) {
+    .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; padding: 12px 0; gap: 8px; }
+    .about-grid, .grid-2, .row-cards { grid-template-columns: 1fr; }
+    .row-card { grid-template-columns: 1fr; }
+    section { padding: 32px 0; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+
 <header>
-  <a href="#" class="brand"><span class="dot"></span>KizAPPS</a>
-  <nav>
-    <a href="#repos">Репозитории</a>
-    <a href="#donate">Донат</a>
-    <a href="#social">Контакты</a>
-  </nav>
+  <div class="container header-inner">
+    <a class="brand" href="#top"><span class="brand-dot"></span>KeasRing</a>
+    <nav>
+      <a href="#about">Обо мне</a>
+      <a href="#projects">Проекты</a>
+      <a href="#donate">Поддержать</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
 </header>
 
-<main>
-  <section id="hero">
-    <h1>Android приложения с открытым кодом</h1>
-    <p class="lead">Простые и полезные утилиты для Android. Исходный код на GitHub.</p>
+<main id="top">
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Обо мне</span>
+        <h2 class="section-title">Привет, я KeasRing</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Чем занимаюсь</h3>
+          <p><!-- Текст о себе — заполни сам -->
+            Здесь будет короткий текст о тебе: чем занимаешься, что делаешь,
+            чем интересен. Два-три предложения — этого достаточно.
+          </p>
+        </div>
+        <dl class="about-fact">
+          <dt>Направление</dt>
+          <dd>Android-разработка</dd>
+        </dl>
+      </div>
+    </div>
   </section>
 
-  <section id="repos">
-    <h2>Репозитории</h2>
-    <div class="grid">
-      <a href="https://github.com/KeasRing/kizDownloader" target="_blank" rel="noopener" class="grid-item">
-        <h3>kizDownloader</h3>
-        <p>Загрузчик контента для Android</p>
-        <span class="external">Открыть на GitHub →</span>
-      </a>
-      <!-- Скопируй этот блок, чтобы добавить новый репозиторий -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Проекты</span>
+        <h2 class="section-title">Мои проекты</h2>
+      </div>
+      <div class="grid-2">
+        <a class="card" href="https://github.com/KeasRing/kizboot" target="_blank" rel="noopener">
+          <h3>kizboot</h3>
+          <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
+          <span class="tag">Android</span>
+        </a>
+        <a class="card" href="https://github.com/KeasRing/kizQR" target="_blank" rel="noopener">
+          <h3>kizQR</h3>
+          <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
+          <span class="tag">Android</span>
+        </a>
+        <div class="card-soon">Скоро</div>
+        <div class="card-soon">Скоро</div>
+      </div>
     </div>
   </section>
 
   <section id="donate">
-    <h2>Поддержать проект</h2>
-    <div class="donate-grid">
-      <a href="https://dalink.to/kizkeas" target="_blank" rel="noopener" class="donate-link">
-        <span class="dot-accent"></span>Dalink
-      </a>
-      <a href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener" class="donate-link">
-        <span class="dot-accent"></span>YooMoney
-      </a>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Поддержать</span>
+        <h2 class="section-title">Поддержать проекты</h2>
+      </div>
+      <div class="row-cards">
+        <div class="row-card">
+          <div>
+            <h3>Dalink</h3>
+            <p>Все способы поддержки в одной ссылке.</p>
+          </div>
+          <a class="btn btn-filled" href="https://dalink.to/kizkeas" target="_blank" rel="noopener">Открыть</a>
+        </div>
+        <div class="row-card">
+          <div>
+            <h3>YooMoney</h3>
+            <p>Перевод на кошелёк напрямую.</p>
+          </div>
+          <a class="btn" href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener">Перевести</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="social">
-    <h2>Контакты</h2>
-    <div class="grid">
-      <a href="https://t.me/KizAPPS" target="_blank" rel="noopener" class="grid-item">
-        <h3>Telegram канал</h3>
-        <p>@KizAPPS — новости и обновления</p>
-        <span class="external">Перейти в Telegram →</span>
-      </a>
+  <section id="contacts">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Контакты</span>
+        <h2 class="section-title">Связь и новости</h2>
+      </div>
+      <div class="row-cards">
+        <div class="row-card">
+          <div>
+            <h3>Telegram-канал</h3>
+            <p>Новости и обновления проектов.</p>
+          </div>
+          <a class="btn btn-filled" href="https://t.me/KizAPPS" target="_blank" rel="noopener">Подписаться</a>
+        </div>
+        <div class="row-card">
+          <div>
+            <h3>GitHub</h3>
+            <p>Исходный код всех проектов.</p>
+          </div>
+          <a class="btn" href="https://github.com/KeasRing" target="_blank" rel="noopener">Открыть</a>
+        </div>
+      </div>
     </div>
   </section>
+
 </main>
 
 <footer>
-  KizAPPS &bull; Разработка Android приложений &bull; Исходный код на GitHub
+  <div class="container">
+    KeasRing · Android-разработка · Исходный код на GitHub
+  </div>
 </footer>
-</div>
+
 </body>
 </html>
