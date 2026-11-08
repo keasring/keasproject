@@ -182,8 +182,29 @@
     font-family: var(--font);
   }
   a.card:hover { --md-filled-card-container-color: var(--md-sys-color-surface-container-high); }
-  .card-media { background: var(--md-sys-color-primary); }
-  .card-media.media-empty { background: var(--md-sys-color-surface-container-highest); }
+  .card-media {
+    background-color: var(--md-sys-color-primary);
+    background-repeat: repeat;
+    background-size: 40px 40px;
+  }
+  /* Узор kizboot — диагональные полосы */
+  .media-stripes {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='40' height='40' fill='%23F5883B'/><path d='M-10 10 L10 -10 M-10 50 L50 -10 M30 50 L50 30' stroke='%23E2742B' stroke-width='10'/></svg>");
+  }
+  /* Узор kizQR — пиксельная шахматка */
+  .media-qr {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='40' height='40' fill='%23F5883B'/><g fill='%23E2742B'><rect width='10' height='10'/><rect x='20' width='10' height='10'/><rect x='10' y='10' width='10' height='10'/><rect x='30' y='10' width='10' height='10'/><rect y='20' width='10' height='10'/><rect x='20' y='20' width='10' height='10'/><rect x='10' y='30' width='10' height='10'/><rect x='30' y='30' width='10' height='10'/></g></svg>");
+  }
+  /* Узор kizDownloader — шевроны вниз */
+  .media-chevrons {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><rect width='40' height='40' fill='%23F5883B'/><path d='M-10 -14 L20 6 L50 -14 M-10 6 L20 26 L50 6 M-10 26 L20 46 L50 26' stroke='%23E2742B' stroke-width='8' fill='none'/></svg>");
+  }
+  /* «Скоро» — точки на тёмном */
+  .card-media.media-empty {
+    background-color: var(--md-sys-color-surface-container-highest);
+    background-size: 32px 32px;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect width='32' height='32' fill='%232B2B2F'/><circle cx='8' cy='8' r='2.5' fill='%233A3A40'/><circle cx='24' cy='24' r='2.5' fill='%233A3A40'/></svg>");
+  }
   .card-body {
     display: grid;
     gap: 8px;
@@ -285,7 +306,7 @@
       <div class="grid-2">
         <a class="card" href="https://github.com/KeasRing/kizboot" target="_blank" rel="noopener">
           <md-filled-card class="card">
-            <div class="card-media"></div>
+            <div class="card-media media-stripes"></div>
             <div class="card-body">
               <h3>kizboot</h3>
               <p class="desc">Запись образов ISO/IMG на USB-накопители через USB OTG. Android, Kotlin, Jetpack Compose, Material 3.</p>
@@ -294,7 +315,7 @@
         </a>
         <a class="card" href="https://github.com/KeasRing/kizQR" target="_blank" rel="noopener">
           <md-filled-card class="card">
-            <div class="card-media"></div>
+            <div class="card-media media-qr"></div>
             <div class="card-body">
               <h3>kizQR</h3>
               <p class="desc">Быстрый QR-сканер и генератор кодов без рекламы, интернета и трекеров.</p>
@@ -303,7 +324,7 @@
         </a>
         <a class="card" href="https://github.com/KeasRing/kizDownloader" target="_blank" rel="noopener">
           <md-filled-card class="card">
-            <div class="card-media"></div>
+            <div class="card-media media-chevrons"></div>
             <div class="card-body">
               <h3>kizDownloader</h3>
               <p class="desc">Загрузчик контента для Android. В разработке.</p>
