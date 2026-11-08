@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KizAPPS — Android приложения</title>
+<style>
+  :root {
+    --md-primary: #FB8C00;
+    --md-on-primary: #FFFFFF;
+    --md-surface: #FAFAFA;
+    --md-on-surface: #1C1B1F;
+    --md-outline: #E0E0E0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, Roboto, "Helvetica Neue", sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--md-outline);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--md-on-surface);
+  }
+  .brand .dot {
+    width: 10px; height: 10px;
+    background: var(--md-primary);
+    border-radius: 50%;
+  }
+  nav {
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--md-on-surface);
+    opacity: 0.8;
+  }
+  nav a:hover { opacity: 1; color: var(--md-primary); }
+  main { padding: 2.5rem 0 4rem; }
+  section { margin-bottom: 3rem; }
+  h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1.5rem; }
+  p.lead { font-size: 1.1rem; opacity: 0.85; max-width: 60ch; }
+  .dot-accent {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--md-primary);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  /* Сетка без карточек/плашек */
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .grid-item {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--md-outline);
+    text-decoration: none;
+    color: inherit;
+  }
+  .grid-item:last-child { border-bottom: none; }
+  .grid-item h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .grid-item p {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    margin-bottom: 0.5rem;
+  }
+  .grid-item .external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--md-primary);
+    text-decoration: none;
+  }
+  .grid-item .external:hover { text-decoration: underline; }
+  /* Донат — чистые ссылки, без плашек */
+  .donate-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .donate-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    color: var(--md-on-surface);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--md-outline);
+  }
+  .donate-link:last-child { border-bottom: none; }
+  .donate-link:hover {
+    color: var(--md-primary);
+    text-decoration: underline;
+  }
+  footer {
+    border-top: 1px solid var(--md-outline);
+    padding: 2rem 0;
+    color: var(--md-on-surface);
+    opacity: 0.6;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    nav { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a href="#" class="brand"><span class="dot"></span>KizAPPS</a>
+  <nav>
+    <a href="#repos">Репозитории</a>
+    <a href="#donate">Донат</a>
+    <a href="#social">Контакты</a>
+  </nav>
+</header>
+
+<main>
+  <section id="hero">
+    <h1>Android приложения с открытым кодом</h1>
+    <p class="lead">Простые и полезные утилиты для Android. Исходный код на GitHub.</p>
+  </section>
+
+  <section id="repos">
+    <h2>Репозитории</h2>
+    <div class="grid">
+      <a href="https://github.com/KeasRing/kizDownloader" target="_blank" rel="noopener" class="grid-item">
+        <h3>kizDownloader</h3>
+        <p>Загрузчик контента для Android</p>
+        <span class="external">Открыть на GitHub →</span>
+      </a>
+      <!-- Скопируй этот блок, чтобы добавить новый репозиторий -->
+    </div>
+  </section>
+
+  <section id="donate">
+    <h2>Поддержать проект</h2>
+    <div class="donate-grid">
+      <a href="https://dalink.to/kizkeas" target="_blank" rel="noopener" class="donate-link">
+        <span class="dot-accent"></span>Dalink
+      </a>
+      <a href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener" class="donate-link">
+        <span class="dot-accent"></span>YooMoney
+      </a>
+    </div>
+  </section>
+
+  <section id="social">
+    <h2>Контакты</h2>
+    <div class="grid">
+      <a href="https://t.me/KizAPPS" target="_blank" rel="noopener" class="grid-item">
+        <h3>Telegram канал</h3>
+        <p>@KizAPPS — новости и обновления</p>
+        <span class="external">Перейти в Telegram →</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  KizAPPS &bull; Разработка Android приложений &bull; Исходный код на GitHub
+</footer>
+</div>
+</body>
+</html>
