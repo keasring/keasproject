@@ -213,21 +213,6 @@
   }
   .card-body h3 { font: var(--title); }
   .card-body .desc { font: var(--body-sm); color: var(--md-sys-color-on-surface-variant); }
-  /* Ссылки на отчёты VirusTotal */
-  .vt-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .vt-links a {
-    font: var(--label);
-    font-family: var(--font);
-    color: var(--md-sys-color-primary);
-    background: var(--md-sys-color-surface-container-highest);
-    padding: 6px 16px;
-    border-radius: 999px;
-  }
-  .vt-links a:hover { color: var(--md-sys-color-on-surface); }
   .card-soon .card-body { place-content: center; text-align: center; }
 
   /* ---------- Донаты / контакты ---------- */
@@ -280,7 +265,7 @@
     <nav>
       <a href="#about">Обо мне</a>
       <a href="#projects">Проекты</a>
-      <a href="#virustotal">VirusTotal</a>
+      <a href="vt.html">VirusTotal</a>
       <a href="donate.html">Поддержать</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -365,33 +350,13 @@
         <span class="section-label">VirusTotal</span>
         <h2 class="section-title">Проверка антивирусами</h2>
       </div>
-      <div class="grid-2">
-        <md-filled-card class="card">
-          <div class="card-body">
-            <h3>kizboot</h3>
-            <p class="desc">Отчёты сканирования APK на VirusTotal:</p>
-            <div class="vt-links">
-              <a href="https://www.virustotal.com/gui/file/08f987be23a43a3d5f1cf7434013fa1f40dc6fef9ba07dd7cd0ee81a3e677cde?nocache=1" target="_blank" rel="noopener">v1.0.0</a>
-              <a href="https://www.virustotal.com/gui/file/a8a31c31dd8c2804e83291bdcb89abc656551594e866bb2ea78a3b8e41b61faa?nocache=1" target="_blank" rel="noopener">v1.0.1</a>
-            </div>
+      <div class="row-cards" style="grid-template-columns: 1fr;">
+        <md-filled-card class="row-card">
+          <div>
+            <h3>Отчёты сканирования</h3>
+            <p>Все APK проверены на VirusTotal — отчёты на отдельной странице.</p>
           </div>
-        </md-filled-card>
-        <md-filled-card class="card">
-          <div class="card-body">
-            <h3>kizQR</h3>
-            <p class="desc">Сканы появятся вместе с первым релизом.</p>
-          </div>
-        </md-filled-card>
-        <md-filled-card class="card">
-          <div class="card-body">
-            <h3>kizDownloader</h3>
-            <p class="desc">Сканы появятся вместе с первым релизом.</p>
-          </div>
-        </md-filled-card>
-        <md-filled-card class="card card-soon">
-          <div class="card-body">
-            <p class="desc">Новые проекты — новые сканы.</p>
-          </div>
+          <md-filled-button href="vt.html">Открыть</md-filled-button>
         </md-filled-card>
       </div>
     </div>

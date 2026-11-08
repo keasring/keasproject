@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VirusTotal — KeasRing</title>
+<meta name="description" content="Отчёты сканирования моих приложений на VirusTotal.">
+
+<!-- Roboto -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
+<style>
+  /* Тот же стиль, что и на главной и donate: m3.material.io, dark + оранжевый */
+  :root {
+    --md-sys-color-primary:               #F5883B;
+    --md-sys-color-surface:               #131314;
+    --md-sys-color-on-surface:            #E4E2E6;
+    --md-sys-color-on-surface-variant:    #C4C7C5;
+    --md-sys-color-surface-container:     #1B1B1D;
+    --md-sys-color-surface-container-high:#232326;
+    --md-sys-color-surface-container-highest: #2B2B2F;
+
+    --font: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --display: 500 clamp(36px, 5vw, 56px)/1.15 var(--font);
+    --title:   500 22px/28px var(--font);
+    --title-sm: 500 16px/24px var(--font);
+    --body:    400 16px/26px var(--font);
+    --body-sm: 400 14px/22px var(--font);
+    --label:   500 14px/20px var(--font);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font: var(--body);
+    font-family: var(--font);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  a { color: var(--md-sys-color-primary); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+
+  header { padding: 16px 0; }
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 24px;
+    height: 48px;
+  }
+  .brand {
+    display: grid;
+    grid-template-columns: 8px auto;
+    gap: 10px;
+    align-items: center;
+    font: var(--title-sm);
+    color: var(--md-sys-color-on-surface);
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    background: var(--md-sys-color-primary);
+    border-radius: 50%;
+  }
+  nav {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    gap: 8px;
+  }
+  nav a {
+    font: var(--label);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+  nav a:hover, nav a[aria-current="page"] {
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container-high);
+  }
+
+  main { flex: 1; }
+  section { padding: 40px 0 64px; }
+
+  .hero {
+    background: var(--md-sys-color-surface-container);
+    border-radius: 28px;
+    padding: clamp(32px, 6vw, 64px);
+    display: grid;
+    gap: 16px;
+  }
+  .hero h1 { font: var(--display); letter-spacing: -0.01em; }
+  .hero p { color: var(--md-sys-color-on-surface-variant); max-width: 640px; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 16px;
+  }
+  .vt-card {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    background: var(--md-sys-color-surface-container);
+    border-radius: 24px;
+    padding: 32px;
+  }
+  .vt-card:hover { background: var(--md-sys-color-surface-container-high); }
+  .vt-card h2 { font: var(--title); }
+  .vt-card p { font: var(--body-sm); color: var(--md-sys-color-on-surface-variant); }
+  .vt-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .vt-links a {
+    font: var(--label);
+    font-family: var(--font);
+    color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-surface-container-highest);
+    padding: 6px 16px;
+    border-radius: 999px;
+  }
+  .vt-links a:hover { color: var(--md-sys-color-on-surface); }
+  .vt-card.soon {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: transparent;
+    border: 1px dashed var(--md-sys-color-surface-container-highest);
+  }
+
+  footer {
+    padding: 40px 0 48px;
+    font: var(--body-sm);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  @media (max-width: 720px) {
+    .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; gap: 8px; }
+    nav { grid-auto-flow: row; justify-content: center; justify-items: center; }
+    .grid-2 { grid-template-columns: 1fr; }
+    section { padding: 24px 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>KeasRing</a>
+    <nav>
+      <a href="index.html#about">Обо мне</a>
+      <a href="index.html#projects">Проекты</a>
+      <a href="vt.html" aria-current="page">VirusTotal</a>
+      <a href="donate.html">Поддержать</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="hero">
+        <span style="font: var(--label); color: var(--md-sys-color-on-surface-variant);">VirusTotal</span>
+        <h1>Проверка антивирусами</h1>
+        <p>
+          Все мои приложения можно проверить на VirusTotal — отчёты сканирования
+          собраны здесь. Прозрачно и открыто.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="vt-card">
+          <h2>kizboot</h2>
+          <p>Отчёты сканирования APK:</p>
+          <div class="vt-links">
+            <a href="https://www.virustotal.com/gui/file/08f987be23a43a3d5f1cf7434013fa1f40dc6fef9ba07dd7cd0ee81a3e677cde?nocache=1" target="_blank" rel="noopener">v1.0.0</a>
+            <a href="https://www.virustotal.com/gui/file/a8a31c31dd8c2804e83291bdcb89abc656551594e866bb2ea78a3b8e41b61faa?nocache=1" target="_blank" rel="noopener">v1.0.1</a>
+          </div>
+        </div>
+        <div class="vt-card">
+          <h2>kizQR</h2>
+          <p>Сканы появятся вместе с первым релизом.</p>
+        </div>
+        <div class="vt-card">
+          <h2>kizDownloader</h2>
+          <p>Сканы появятся вместе с первым релизом.</p>
+        </div>
+        <div class="vt-card soon">
+          <p>Новые проекты — новые сканы.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    KeasRing · Android-разработка · Исходный код на GitHub
+  </div>
+</footer>
+
+</body>
+</html>
