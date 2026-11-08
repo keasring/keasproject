@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поддержать — KeasRing</title>
+<meta name="description" content="Поддержать разработку Android-проектов: YooMoney и Dalink.">
+
+<!-- Roboto -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
+<style>
+  /* Тот же стиль, что и на главной: m3.material.io, dark + оранжевый */
+  :root {
+    --md-sys-color-primary:               #F5883B;
+    --md-sys-color-on-primary:            #201A14;
+    --md-sys-color-surface:               #131314;
+    --md-sys-color-on-surface:            #E4E2E6;
+    --md-sys-color-on-surface-variant:    #C4C7C5;
+    --md-sys-color-surface-container:     #1B1B1D;
+    --md-sys-color-surface-container-high:#232326;
+    --md-sys-color-surface-container-highest: #2B2B2F;
+
+    --font: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --display: 500 clamp(36px, 5vw, 56px)/1.15 var(--font);
+    --title-sm: 500 16px/24px var(--font);
+    --body:     400 16px/26px var(--font);
+    --body-sm:  400 14px/22px var(--font);
+    --label:    500 14px/20px var(--font);
+  }
+
+  *:not(md-filled-button) { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font: var(--body);
+    font-family: var(--font);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  a { color: var(--md-sys-color-primary); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+
+  header { padding: 16px 0; }
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 24px;
+    height: 48px;
+  }
+  .brand {
+    display: grid;
+    grid-template-columns: 8px auto;
+    gap: 10px;
+    align-items: center;
+    font: var(--title-sm);
+    color: var(--md-sys-color-on-surface);
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    background: var(--md-sys-color-primary);
+    border-radius: 50%;
+  }
+  nav {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    gap: 8px;
+  }
+  nav a {
+    font: var(--label);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+  nav a:hover, nav a[aria-current="page"] {
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container-high);
+  }
+
+  main { flex: 1; }
+  section { padding: 40px 0 64px; }
+
+  .hero {
+    background: var(--md-sys-color-surface-container);
+    border-radius: 28px;
+    padding: clamp(32px, 6vw, 64px);
+    display: grid;
+    gap: 16px;
+  }
+  .hero h1 { font: var(--display); letter-spacing: -0.01em; }
+  .hero p { color: var(--md-sys-color-on-surface-variant); max-width: 640px; }
+
+  .banners {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 16px;
+  }
+  .banner-card {
+    display: grid;
+    grid-template-rows: 220px auto;
+    background: var(--md-sys-color-surface-container);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .banner-card:hover { background: var(--md-sys-color-surface-container-high); }
+  .banner-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--md-sys-color-surface-container-high);
+  }
+  .banner-caption {
+    display: grid;
+    gap: 4px;
+    align-content: start;
+    padding: 24px;
+  }
+  .banner-caption h2 { font: 500 22px/28px var(--font); }
+  .banner-caption p { font: var(--body-sm); color: var(--md-sys-color-on-surface-variant); }
+
+  footer {
+    padding: 40px 0 48px;
+    font: var(--body-sm);
+    font-family: var(--font);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  @media (max-width: 720px) {
+    .header-inner { grid-template-columns: 1fr; justify-items: center; height: auto; gap: 8px; }
+    nav { grid-auto-flow: row; justify-content: center; justify-items: center; }
+    .banners { grid-template-columns: 1fr; }
+    section { padding: 24px 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>KeasRing</a>
+    <nav>
+      <a href="index.html#about">Обо мне</a>
+      <a href="index.html#projects">Проекты</a>
+      <a href="donate.html" aria-current="page">Поддержать</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="hero">
+        <span style="font: var(--label); color: var(--md-sys-color-on-surface-variant);">Поддержать</span>
+        <h1>Поддержите меня!</h1>
+        <p>
+          Все мои проекты бесплатны и без рекламы. Если они тебе полезны —
+          можешь поддержать разработку любым удобным способом.
+        </p>
+      </div>
+
+      <div class="banners">
+        <a class="banner-card" href="https://yoomoney.ru/to/4100119679701013" target="_blank" rel="noopener">
+          <img src="assets/yoomoney-banner.png" alt="YooMoney">
+          <div class="banner-caption">
+            <h2>YooMoney</h2>
+            <p>Перевод на кошелёк напрямую.</p>
+          </div>
+        </a>
+        <a class="banner-card" href="https://dalink.to/kizkeas" target="_blank" rel="noopener">
+          <img src="assets/dalink-banner.png" alt="Dalink">
+          <div class="banner-caption">
+            <h2>Dalink</h2>
+            <p>Все способы поддержки в одной ссылке.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    KeasRing · Android-разработка · Исходный код на GitHub
+  </div>
+</footer>
+
+</body>
+</html>
